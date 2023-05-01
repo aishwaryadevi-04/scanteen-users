@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scanteen_users/Users/UserFood/food_category.dart';
+import 'package:scanteen_users/Users/UserFood/u_food_list.dart';
 import 'package:scanteen_users/navbar.dart';
 
-class u_food extends StatefulWidget {
+class UserFood extends StatefulWidget {
   //Selected food item of users
-  const u_food({super.key});
+  const UserFood({super.key});
 
   @override
-  State<u_food> createState() => _u_foodState();
+  State<UserFood> createState() => UserFoodState();
 }
 
-class _u_foodState extends State<u_food> {
+class UserFoodState extends State<UserFood> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -20,12 +22,6 @@ class _u_foodState extends State<u_food> {
     });
   }
 
-  List<Map<String, dynamic>> u_food = [
-    {'f_name': 'Chicken Sandwich', 'f_price': 75, 'count': 1},
-    {'f_name': 'Veg Burger', 'f_price': 50, 'count': 1},
-    {'f_name': 'Pizza', 'f_price': 100, 'count': 1},
-    {'f_name': 'Icecream', 'f_price': 45, 'count': 1},
-  ];
   List<Map<String, dynamic>> _filteredFood = [];
 
   initState() {
@@ -59,8 +55,6 @@ class _u_foodState extends State<u_food> {
     }
     return total;
   }
-
-  List<String> types = ['Snacks', 'Drinks', 'Lunch', 'Icecream'];
 
   @override
   Widget build(BuildContext context) {
@@ -112,10 +106,12 @@ class _u_foodState extends State<u_food> {
                       ),
                     ]),
               ),
+              
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 26, 16, 33),
                 child: Column(
                   children: [
+                    //Search button
                     Container(
                       height: 34,
                       child: TextField(
@@ -123,7 +119,8 @@ class _u_foodState extends State<u_food> {
                         onChanged: (value) => _filterFood(value),
                         decoration: InputDecoration(
                             filled: true,
-                            prefixIcon: Icon(Icons.search,color: const Color(0xFF757575)),
+                            prefixIcon: Icon(Icons.search,
+                                color: const Color(0xFF757575)),
                             hintText: 'Search',
                             hintStyle: GoogleFonts.inter(
                                 textStyle: const TextStyle(
@@ -135,43 +132,9 @@ class _u_foodState extends State<u_food> {
                       ),
                     ),
                     const SizedBox(height: 17.0),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: types.map((entry) {
-                          String key = entry;
-
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () => {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFFE09145),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  minimumSize: const Size(90, 30),
-                                ),
-                                child: Text(
-                                  key,
-                                  style: GoogleFonts.inter(
-                                    textStyle: const TextStyle(
-                                      color: Color(0XFF17181D),
-                                    ),
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 15)
-                            ],
-                          );
-                        }).toList(),
-                      ),
-                    ),
+                    const FoodCategory(),
                     const SizedBox(height: 17),
-                    Row(
+                    Row(  //Total amount
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Your Total : Rs ${calculatePrice()}',
@@ -204,8 +167,8 @@ class _u_foodState extends State<u_food> {
                     const SizedBox(height: 44),
                     Column(
                       children: _filteredFood.map((food) {
-                        String key = food['f_name'];
-                        int value = food['f_price'];
+                        String foodName = food['f_name'];
+                        int foodPrice = food['f_price'];
                         int count = food['count'];
                         return Padding(
                           padding: const EdgeInsets.only(
@@ -239,7 +202,7 @@ class _u_foodState extends State<u_food> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          key,
+                                          foodName,
                                           style: GoogleFonts.inter(
                                             textStyle: const TextStyle(
                                               color: Color(0xFFFCD9B8),
@@ -342,7 +305,7 @@ class _u_foodState extends State<u_food> {
                                           child: Align(
                                             alignment: Alignment.bottomLeft,
                                             child: Text(
-                                              'Rs. $value/-',
+                                              'Rs. $foodPrice/-',
                                               style: GoogleFonts.inter(
                                                 textStyle: const TextStyle(
                                                   color: Color(0xFF757575),

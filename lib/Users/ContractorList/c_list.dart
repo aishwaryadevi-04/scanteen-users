@@ -1,6 +1,10 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:scanteen_users/Users/ContractorList/c_food_details.dart';
+import 'package:scanteen_users/Users/ContractorList/header.dart';
 import 'package:scanteen_users/navbar.dart';
+import 'package:scanteen_users/Users/UserFood/u_food.dart';
+
 
 class C_list extends StatefulWidget {
   //Display list of contractors
@@ -20,16 +24,6 @@ class _C_listState extends State<C_list> {
     });
   }
 
-  List<Map<String, dynamic>> c_details = [
-    {'c_name': 'Frost Bite', 'category': 'FastFood'},
-    {'c_name': 'CK Bakery', 'category': 'Sandwiches'},
-    {'c_name': 'Ibaco', 'category': 'Icecream'},
-    {'c_name': 'Aruvi sweets', 'category': 'Sweets'},
-    {'c_name': 'Frost Bite', 'category': 'FastFood'},
-    {'c_name': 'CK Bakery', 'category': 'Sandwiches'},
-    {'c_name': 'Ibaco', 'category': 'Icecream'},
-    {'c_name': 'Aruvi sweets', 'category': 'Sweets'},
-  ];
   List<Map<String, dynamic>> _filteredContractors = [];
 
   initState() {
@@ -60,29 +54,7 @@ class _C_listState extends State<C_list> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 77, 16, 0),
-            child: Text(
-              'Contractors',
-              style: GoogleFonts.inter(
-                textStyle: const TextStyle(
-                  color: Color(0xFFFCD9B8),
-                ),
-                fontSize: 35,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Divider(
-                    color: const Color(0xFFBDBDBD).withOpacity(0.1),
-                    thickness: 1.0,
-                  ),
-                ]),
-          ),
+          const Header(),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 26, 16, 33),
             child: Container(
@@ -123,17 +95,23 @@ class _C_listState extends State<C_list> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children:
                                     _filteredContractors.map((contractors) {
-                                  String key = contractors['c_name'];
-                                  String value = contractors['category'];
+                                  String cname = contractors['c_name'];
+                                  String category = contractors['category'];
                                   return Row(
                                     children: [
                                       Expanded(
                                         flex: 0,
                                         child: ElevatedButton(
                                           onPressed: () => {
-                                            Navigator.pushNamed(
-                                                context, '/u_food',
-                                                arguments: key)
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const UserFood(),
+                                                settings: RouteSettings(
+                                                    arguments: cname),
+                                              ),
+                                            ),
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
@@ -165,7 +143,7 @@ class _C_listState extends State<C_list> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  key,
+                                                  cname,
                                                   style: GoogleFonts.inter(
                                                     textStyle: const TextStyle(
                                                       color: Color(0xFFFCD9B8),
@@ -174,7 +152,7 @@ class _C_listState extends State<C_list> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  '$value * \$\$',
+                                                  '$category * \$\$',
                                                   style: GoogleFonts.inter(
                                                     textStyle: const TextStyle(
                                                       color: Color(0xFF757575),

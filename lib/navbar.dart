@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:scanteen_users/Users/ContractorList/c_list.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({
@@ -23,7 +24,12 @@ class NavBar extends StatelessWidget {
             onTabChange(index);
             switch (index) {
               case 0:
-                Navigator.pushNamed(context, '/');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const C_list(),
+                  ),
+                );
                 break;
               case 1:
                 // Navigator.pushNamed(context, '');
