@@ -6,7 +6,13 @@ import 'package:scanteen_users/navbar.dart';
 
 class UserFood extends StatefulWidget {
   //Selected food item of users
-  const UserFood({super.key});
+  // const UserFood({super.key});
+  final data;
+
+  const UserFood({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
 
   @override
   State<UserFood> createState() => UserFoodState();
@@ -59,8 +65,7 @@ class UserFoodState extends State<UserFood> {
   @override
   Widget build(BuildContext context) {
     //To display selected contractor name
-    String? selectedCname =
-        ModalRoute.of(context)!.settings.arguments as String;
+    String selectedCname = widget.data;
     return Scaffold(
       backgroundColor: const Color(0xFF17181D),
       body: SingleChildScrollView(
@@ -106,7 +111,6 @@ class UserFoodState extends State<UserFood> {
                       ),
                     ]),
               ),
-              
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 26, 16, 33),
                 child: Column(
@@ -134,7 +138,8 @@ class UserFoodState extends State<UserFood> {
                     const SizedBox(height: 17.0),
                     const FoodCategory(),
                     const SizedBox(height: 17),
-                    Row(  //Total amount
+                    Row(
+                      //Total amount
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Your Total : Rs ${calculatePrice()}',

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:scanteen_users/Users/ContractorList/c_food_details.dart';
 import 'package:scanteen_users/Users/ContractorList/header.dart';
 import 'package:scanteen_users/navbar.dart';
-import 'package:scanteen_users/Users/UserFood/u_food.dart';
+
 
 
 class C_list extends StatefulWidget {
@@ -103,15 +103,8 @@ class _C_listState extends State<C_list> {
                                         flex: 0,
                                         child: ElevatedButton(
                                           onPressed: () => {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const UserFood(),
-                                                settings: RouteSettings(
-                                                    arguments: cname),
-                                              ),
-                                            ),
+                                            
+                                            Navigator.pushNamed(context, '/u_food', arguments:cname)
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
