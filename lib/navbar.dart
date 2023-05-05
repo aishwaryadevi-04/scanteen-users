@@ -26,7 +26,7 @@ class NavBar extends StatelessWidget {
                 Navigator.of(context).pushNamed('/');
                 break;
               case 1:
-                // Navigator.pushNamed(context, '');
+                 //Navigator.of(context).pushNamed('/o_food');
                 break;
               case 2:
                 // Navigator.pushNamed(context, '');

@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scanteen_users/Users/UserFood/food_category.dart';
@@ -48,6 +51,7 @@ class UserFoodState extends State<UserFood> {
     }
     setState(() {
       _filteredFood = results;
+      print('Filtered food : $_filteredFood');
     });
   }
 
@@ -59,6 +63,7 @@ class UserFoodState extends State<UserFood> {
       int price = u_food[i]['f_price'] ?? 0;
       total += count * price;
     }
+    print('Total amount : $total');
     return total;
   }
 
@@ -175,6 +180,7 @@ class UserFoodState extends State<UserFood> {
                         String foodName = food['f_name'];
                         int foodPrice = food['f_price'];
                         int count = food['count'];
+                        File? foodImage = food['f_image'] ?? null;
                         return Padding(
                           padding: const EdgeInsets.only(
                               left: 3.0, right: 10, bottom: 33),
@@ -196,6 +202,27 @@ class UserFoodState extends State<UserFood> {
                                       borderRadius: BorderRadius.circular(10),
                                       color: Color(0XFF757575),
                                     ),
+                                     child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 60,
+                                                          right: 60.0,
+                                                          top: 0,
+                                                          bottom: 0),
+                                                  child: Container(
+                                                    width: double.infinity,
+                                                    height: 243.0,
+                                                    child: foodImage == null
+                                                        ? Image.asset(
+                                                            'assets/food.jfif',
+                                                            fit:
+                                                                BoxFit.fitWidth)
+                                                        : Image.file(foodImage,
+                                                            fit: BoxFit
+                                                                .fitWidth),
+                                                  ),
+                                                ),
+
                                   ),
                                 ),
                                 const SizedBox(height: 10),
@@ -233,7 +260,7 @@ class UserFoodState extends State<UserFood> {
                                             GestureDetector(
                                               onTap: () {
                                                 setState(() {
-                                                  if (count > 1) {
+                                                  if (count >= 1) {
                                                     food['count'] = count - 1;
                                                   }
                                                 });
@@ -247,6 +274,7 @@ class UserFoodState extends State<UserFood> {
                                                           10.0),
                                                   color: Color(0XFFBDBDBD),
                                                 ),
+                                               
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,

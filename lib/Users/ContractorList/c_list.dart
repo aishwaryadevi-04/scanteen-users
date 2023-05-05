@@ -1,10 +1,10 @@
+import 'dart:developer';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:scanteen_users/Users/ContractorList/c_food_details.dart';
 import 'package:scanteen_users/Users/ContractorList/header.dart';
 import 'package:scanteen_users/navbar.dart';
-
-
 
 class C_list extends StatefulWidget {
   //Display list of contractors
@@ -44,6 +44,7 @@ class _C_listState extends State<C_list> {
     }
     setState(() {
       _filteredContractors = results;
+      print('filtered contractors : $_filteredContractors');
     });
   }
 
@@ -103,8 +104,10 @@ class _C_listState extends State<C_list> {
                                         flex: 0,
                                         child: ElevatedButton(
                                           onPressed: () => {
-                                            
-                                            Navigator.pushNamed(context, '/u_food', arguments:cname)
+                                            print('Selected Contractor : $cname'),
+                                            Navigator.pushNamed(
+                                                context, '/u_food',
+                                                arguments: cname)
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
